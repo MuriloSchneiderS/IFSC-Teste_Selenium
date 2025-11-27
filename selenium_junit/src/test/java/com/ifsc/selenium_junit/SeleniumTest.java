@@ -23,7 +23,7 @@ public class SeleniumTest {
     @Test
     @DisplayName(value="teste de busca")
     public void testaBusca() throws InterruptedException {
-        String busca = "Gato";
+        String busca = "Banoff";
         PaginaInicial page = new PaginaInicial(this.driver);
 
         page.navegaHome();
@@ -32,10 +32,10 @@ public class SeleniumTest {
 
         PaginaResposta pageResp = page.fazBusca(busca);
         Thread.sleep(2000);
-        String labelResp = pageResp.getLabelRespostas();
+        String labelResp = pageResp.getTituloResposta();
 
         System.out.println(labelResp);
 
-        Assertions.assertTrue(labelResp.endsWith("Imagens De "+busca));
+        Assertions.assertTrue(labelResp.contains(busca));
     }
 }

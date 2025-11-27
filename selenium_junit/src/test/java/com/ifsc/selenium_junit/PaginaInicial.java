@@ -6,19 +6,18 @@ import org.openqa.selenium.WebElement;
 
 public class PaginaInicial {
     private WebDriver driver;
-    private By campoBusca = By.className("SearchInput_input__NOK7W");
+    private By campoBusca = By.className("barra-pesquisa");
     
     public PaginaInicial(WebDriver driver){
         this.driver = driver;
     }
     
     public void navegaHome(){
-        this.driver.get("https://www.pexels.com/pt-br/");
+        this.driver.get("http://muriloschneiders.github.io/SENAC-WEB-cantin-sCoffee/cantinscoffee/src/main/resources/templates/index.html");
     }
-    public PaginaResposta fazBusca(String valor){
+    public PaginaResposta fazBusca(String valor){//Busca apenas move o campo ativo para o item com nome contendo termo pesquisado, sem precisar de enter
         WebElement campoSearch = driver.findElement(campoBusca);
         campoSearch.sendKeys(valor);
-        campoSearch.submit();
         return new PaginaResposta(this.driver);
     }
 
