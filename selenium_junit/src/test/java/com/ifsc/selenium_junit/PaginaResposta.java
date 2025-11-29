@@ -6,7 +6,7 @@ import org.openqa.selenium.WebElement;
 
 public class PaginaResposta {
     private WebDriver driver;
-    private By labelResp= By.className("swiper-slide-active");
+    private By labelResp= By.className("swiper-slide-active");//Card Ativo
     
     public PaginaResposta(WebDriver driver) {
         this.driver= driver;
