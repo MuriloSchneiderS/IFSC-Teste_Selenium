@@ -21,21 +21,33 @@ public class SeleniumTest {
     }
     
     @Test
-    @DisplayName(value="teste de busca")
+    @DisplayName(value="teste de busca de produto")
     public void testaBusca() throws InterruptedException {
-        String busca = "Banoff";
+        //Garantir que está na pagina inicial
         PaginaInicial page = new PaginaInicial(this.driver);
-
         page.navegaHome();
         Thread.sleep(2000);
-        System.out.println(this.driver.getTitle());
-
-        PaginaResposta pageResp = page.fazBusca(busca);
-        Thread.sleep(2000);
-        String labelResp = pageResp.getTituloResposta();
-
-        System.out.println(labelResp);
-
-        Assertions.assertTrue(labelResp.contains(busca));
+        
+        // Testando a busca por produto qualquer
+        String busca1 = "Banoff";
+        CardProduto card1 = page.fazBusca(busca1);
+        Thread.sleep(1000);
+        String tituloCard1 = card1.getTituloResposta();
+        Thread.sleep(1000);
+        
+        // Testando a busca pelo último produto de um swiper
+        String busca2 = "Snickers";
+        page.limpaBusca();
+        CardProduto card2 = page.fazBusca(busca2);
+        Thread.sleep(1000);
+        String tituloCard2 = card2.getTituloResposta();
+        Thread.sleep(1000);
+        
+        Assertions.assertAll(
+            () -> Assertions.assertTrue(tituloCard1.contains(busca1), 
+                "O título do card não contém o produto buscado: " + busca1),
+            () -> Assertions.assertTrue(tituloCard2.contains(busca2), 
+                "O título do card não contém o produto buscado: " + busca2)
+        );
     }
 }
