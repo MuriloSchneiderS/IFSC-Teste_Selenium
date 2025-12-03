@@ -15,6 +15,10 @@ public class PaginaInicial {
     public void navegaHome(){
         this.driver.get("http://muriloschneiders.github.io/SENAC-WEB-cantin-sCoffee/cantinscoffee/src/main/resources/templates/index.html");
     }
+    public void toggleSacola(){
+        WebElement btnSacola = driver.findElement(By.className("icone-sacola"));
+        btnSacola.click();
+    }
     public CardProduto fazBusca(String valor){//Busca apenas move o campo ativo para o item com nome contendo termo pesquisado, sem precisar de enter
         WebElement campoSearch = driver.findElement(campoBusca);
         campoSearch.sendKeys(valor);
@@ -24,5 +28,4 @@ public class PaginaInicial {
         WebElement campoSearch = driver.findElement(campoBusca);
         campoSearch.clear();
     }
-
 }
