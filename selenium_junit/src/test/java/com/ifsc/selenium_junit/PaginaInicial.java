@@ -7,7 +7,7 @@ import org.openqa.selenium.WebElement;
 public class PaginaInicial {
     private WebDriver driver;
     private By campoBusca = By.className("barra-pesquisa");
-    private By labelMenu = By.className("nav-list");
+    private By labelMenu = By.tagName("menu");
     
     public PaginaInicial(WebDriver driver){
         this.driver = driver;
@@ -33,7 +33,15 @@ public class PaginaInicial {
     }
     
     public CabecalhoMenu getMenu(){
-        WebElement menu = driver.findElement(labelMenu);
-        return new CabecalhoMenu(this.driver, menu);
+        WebElement menuVisivel=driver.findElement(labelMenu);
+        //Menu mobile invisivel com tela cheia no computador
+        for (WebElement menu : driver.findElements(labelMenu)) {
+            if (menu.isDisplayed()) {
+                menuVisivel = menu;//Atribui o menu apenas se ele estiver visível
+                break;//Sai do loop se encontrar um elemento visível
+            }
+        }
+        
+        return new CabecalhoMenu(this.driver, menuVisivel);
     }
 }

@@ -8,10 +8,12 @@ import org.openqa.selenium.WebElement;
 public class CabecalhoMenu {
     private WebDriver driver;
     private List<WebElement> opcoes_menu;
+    private WebElement btnMobileMenu;
     
     public CabecalhoMenu(WebDriver driver, WebElement nav_list) {
         this.driver = driver;
         this.opcoes_menu = nav_list.findElements(By.className("nav-link"));
+        this.btnMobileMenu = driver.findElement(By.className("mobile-menu-icon"));
     }
     
     public void clickMenu(){
@@ -26,5 +28,9 @@ public class CabecalhoMenu {
     public WebElement clickAjuda(){
         opcoes_menu.get(3).click();
         return driver.findElement(By.className("pop-ajuda"));
+    }
+    
+    public boolean checkDisplayMobileMenu(){
+        return btnMobileMenu.isDisplayed();
     }
 }

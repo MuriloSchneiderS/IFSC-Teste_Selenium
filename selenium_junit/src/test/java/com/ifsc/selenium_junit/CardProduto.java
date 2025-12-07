@@ -22,6 +22,7 @@ public class CardProduto{
         this.preco = Double.valueOf(cardBuscado.findElement(By.className("menu-card-preco")).getText().replace(",", "."));
         this.botaoAdd = cardBuscado.findElement(By.className("add-button"));
     }
+    
     public String getTitulo(){
         return titulo;
     }
@@ -30,5 +31,9 @@ public class CardProduto{
     }
     public void addSacola(){
         botaoAdd.click();
+    }
+    
+    public WebElement slider(){//slider/carrossel onde o item esta
+        return cardBuscado.findElement(By.xpath("ancestor::div[contains(@class, 'slide-content')]"));
     }
 }

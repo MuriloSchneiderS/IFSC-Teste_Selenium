@@ -3,6 +3,7 @@ package com.ifsc.selenium_junit;
 import java.util.List;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -156,5 +157,16 @@ public class SeleniumTest {
         Assertions.assertTrue(driver.getCurrentUrl().contains("#faleconosco"), "A URL não contém '#faleconosco'.");
         
         Assertions.assertTrue(menu.clickAjuda().getAttribute("class").contains("open"), "O pop up ajuda não esta aberto.");
+    }
+    
+    @Test
+    @DisplayName("testa redimensionamento da tela")
+    public void testaMobile() throws InterruptedException{
+        driver.manage().window().setSize(new Dimension(759, 1000));
+        //Menu deve virar hambúrguer.
+        CabecalhoMenu menu = page.getMenu();
+        Assertions.assertTrue(menu.checkDisplayMobileMenu(), "mobile-menu-icon nao esta visivel.");
+        //cardápio deve ficar vertical
+        Assertions.assertTrue(page.fazBusca("Brownie").slider().getAttribute("class").contains("swiper-vertical"));
     }
 }
