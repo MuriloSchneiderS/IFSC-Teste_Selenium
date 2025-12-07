@@ -2,12 +2,14 @@ package com.ifsc.selenium_junit;
 
 import java.util.List;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
+@TestMethodOrder(OrderAnnotation.class)
 public class SeleniumTest {
     private WebDriver driver;
     PaginaInicial page;
@@ -25,10 +27,11 @@ public class SeleniumTest {
     }
     @AfterEach
     public void fechaNavegador(){
-        //if(driver!=null) this.driver.quit();
+        if(driver!=null) this.driver.quit();
     }
     
     @Test
+    @Order(1)
     @DisplayName(value="teste de busca de produto")
     public void testaBusca() throws InterruptedException {
         // Testando a busca por produto qualquer
@@ -55,6 +58,7 @@ public class SeleniumTest {
     }
     
     @Test
+    @Order(2)
     @DisplayName("teste de adicionar à sacola")
     public void testaSacola() throws InterruptedException{
         //Adicionar produto à sacola
@@ -94,6 +98,7 @@ public class SeleniumTest {
     }
     
     @Test
+    @Order(3)
     @DisplayName("teste de creditar com sacola vazia/sem nome")
     public void testaFalhaCreditar() throws InterruptedException{
         //Sacola vazia
@@ -120,6 +125,7 @@ public class SeleniumTest {
     }
     
     @Test
+    @Order(4)
     @DisplayName("teste de creditar corretamente")
     public void testaSucessoCreditar() throws InterruptedException{
         //Preencher sacola
@@ -141,6 +147,7 @@ public class SeleniumTest {
     }
     
     @Test
+    @Order(5)
     @DisplayName("teste das opcoes do cabecalho")
     public void testaMenu() throws InterruptedException{
         CabecalhoMenu menu = page.getMenu();
@@ -160,6 +167,7 @@ public class SeleniumTest {
     }
     
     @Test
+    @Order(6)
     @DisplayName("testa redimensionamento da tela")
     public void testaMobile() throws InterruptedException{
         driver.manage().window().setSize(new Dimension(759, 1000));
