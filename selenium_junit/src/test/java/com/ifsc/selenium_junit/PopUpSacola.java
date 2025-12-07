@@ -28,7 +28,7 @@ public class PopUpSacola {
             int itemQuantidade = Integer.parseInt(item.findElement(By.className("quantidade")).getText());
             
             //Cria um objeto CardSacola para cada item
-            CardSacola card = new CardSacola(driver, itemNome, (float)itemPreco, itemQuantidade);
+            CardSacola card = new CardSacola(driver, itemNome, itemPreco, itemQuantidade);
             itens.add(card);
         }
         

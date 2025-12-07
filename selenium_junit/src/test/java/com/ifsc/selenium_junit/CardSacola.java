@@ -9,7 +9,7 @@ public class CardSacola {
     private double preco;
     private int quantidade;
     
-    public CardSacola(WebDriver driver, String nome, float preco, int quantidade) {
+    public CardSacola(WebDriver driver, String nome, double preco, int quantidade) {
         this.driver = driver;
         this.nome=nome;
         this.preco=preco;

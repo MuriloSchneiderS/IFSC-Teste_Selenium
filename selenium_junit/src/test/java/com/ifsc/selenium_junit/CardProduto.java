@@ -4,26 +4,31 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-public class CardProduto {
+public class CardProduto{
     private WebDriver driver;
     private By labelCardAtivo= By.className("swiper-slide-active");//Card Ativo dentro do swiper slide
+    private By labelCardBuscado= By.className("buscado");//Card buscado pela barra de pesquisa
+    private final WebElement cardBuscado;
+    
+    private final String titulo;
+    private final Double preco;
+    private final WebElement botaoAdd;
     
     public CardProduto(WebDriver driver) {
         this.driver= driver;
+        cardBuscado = this.driver.findElement(labelCardBuscado);
+        
+        this.titulo = cardBuscado.findElement(By.tagName("h2")).getText();
+        this.preco = Double.valueOf(cardBuscado.findElement(By.className("menu-card-preco")).getText().replace(",", "."));
+        this.botaoAdd = cardBuscado.findElement(By.className("add-button"));
     }
     public String getTitulo(){
-        WebElement cardAtivo = driver.findElement(labelCardAtivo);
-        WebElement tituloProduto = cardAtivo.findElement(By.tagName("h2"));
-        return tituloProduto.getText();
+        return titulo;
     }
     public double getPreco(){
-        WebElement cardAtivo = driver.findElement(labelCardAtivo);
-        WebElement precoProduto = cardAtivo.findElement(By.className("menu-card-preco"));
-        return Double.parseDouble(precoProduto.getText());
+        return preco;
     }
     public void addSacola(){
-        WebElement cardAtivo = driver.findElement(labelCardAtivo);
-        WebElement botaoAdd = cardAtivo.findElement(By.className("add-button"));
         botaoAdd.click();
     }
 }

@@ -58,14 +58,14 @@ public class SeleniumTest {
         //Adicionar produto à sacola
         String nomeProduto1 = "RedBull";
         CardProduto card1 = page.fazBusca(nomeProduto1);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         card1.addSacola();//1X
         
         page.limpaBusca();
         
         String nomeProduto2 = "Baly";
         CardProduto card2 = page.fazBusca(nomeProduto2);
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         card2.addSacola();
         card2.addSacola();//2X
         
