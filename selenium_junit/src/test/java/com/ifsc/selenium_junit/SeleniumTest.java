@@ -138,4 +138,23 @@ public class SeleniumTest {
 "      Compareça à Cantin's Coffee para receber e pagar pelo seu pedido.\n" +
 "      Valor Total: R$"+String.format("%.2f",card1.getPreco())+".").trim());
     }
+    
+    @Test
+    @DisplayName("teste das opcoes do cabecalho")
+    public void testaMenu() throws InterruptedException{
+        CabecalhoMenu menu = page.getMenu();
+        menu.clickMenu();
+        Thread.sleep(1000);
+        Assertions.assertTrue(driver.getCurrentUrl().contains("#menu"), "A URL não contém '#menu'.");
+        
+        menu.clickSobre();
+        Thread.sleep(1000);
+        Assertions.assertTrue(driver.getCurrentUrl().contains("#sobre"), "A URL não contém '#sobre'.");
+        
+        menu.clickContato();
+        Thread.sleep(1000);
+        Assertions.assertTrue(driver.getCurrentUrl().contains("#faleconosco"), "A URL não contém '#faleconosco'.");
+        
+        Assertions.assertTrue(menu.clickAjuda().getAttribute("class").contains("open"), "O pop up ajuda não esta aberto.");
+    }
 }
