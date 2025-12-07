@@ -2,6 +2,7 @@ package com.ifsc.selenium_junit;
 
 import java.util.List;
 import org.junit.jupiter.api.*;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -89,5 +90,52 @@ public class SeleniumTest {
                        "Produto " + item.getNome() + " não está na sacola."
             );
         }
+    }
+    
+    @Test
+    @DisplayName("teste de creditar com sacola vazia/sem nome")
+    public void testaFalhaCreditar() throws InterruptedException{
+        //Sacola vazia
+        page.toggleSacola();
+        PopUpSacola sacola = new PopUpSacola(driver);
+        sacola.creditar();
+        Alert alert = driver.switchTo().alert();
+        Thread.sleep(1000);
+        Assertions.assertEquals(alert.getText(), "Seu carrinho está vazio!");
+        alert.accept();
+        
+        //Faltando nome
+        page.toggleSacola();
+        Thread.sleep(500);
+        CardProduto card1 = page.fazBusca("Coca");
+        Thread.sleep(1000);
+        card1.addSacola();
+        
+        page.toggleSacola();
+        sacola.creditar();
+        Thread.sleep(1000);
+        Assertions.assertEquals(alert.getText(), "É necessário preencher o campo de texto com seu nome!");
+        alert.accept();
+    }
+    
+    @Test
+    @DisplayName("teste de creditar corretamente")
+    public void testaSucessoCreditar() throws InterruptedException{
+        //Preencher sacola
+        CardProduto card1 = page.fazBusca("Coca");
+        Thread.sleep(1000);
+        card1.addSacola();
+        
+        //Preencher nome
+        page.toggleSacola();
+        PopUpSacola sacola = new PopUpSacola(driver);
+        String nome = "murilo";
+        sacola.preencheNome(nome);
+        sacola.creditar();
+        Alert alert = driver.switchTo().alert();
+        
+        Assertions.assertEquals(alert.getText().trim(),("  Obrigado, "+nome+". Seu pedido foi realizado!\n" +
+"      Compareça à Cantin's Coffee para receber e pagar pelo seu pedido.\n" +
+"      Valor Total: R$"+String.format("%.2f",card1.getPreco())+".").trim());
     }
 }

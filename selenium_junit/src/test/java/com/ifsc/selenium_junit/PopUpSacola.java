@@ -8,10 +8,18 @@ import org.openqa.selenium.WebElement;
 
 public class PopUpSacola {
     private WebDriver driver;
-    private By labelLista= By.tagName("ul");//lista dos itens(li) na sacola
+    private final By labelLista= By.tagName("ul");//lista dos itens(li) na sacola
+    private final By labelFinalizar = By.className("finalizar");
+    private final By labelNome = By.className("input-cliente");
     
     public PopUpSacola(WebDriver driver) {
         this.driver= driver;
+    }
+    
+    //Preenche campo nome
+    public void preencheNome(String nome){
+        WebElement inputNome = driver.findElement(labelNome);
+        inputNome.sendKeys(nome);
     }
     
     //Retornar lista dos itens(CardSacola)
@@ -33,5 +41,11 @@ public class PopUpSacola {
         }
         
         return itens;
+    }
+    
+    //Finaliza compra
+    public void creditar(){
+        WebElement btnFinalizar = driver.findElement(labelFinalizar);
+        btnFinalizar.click();
     }
 }
